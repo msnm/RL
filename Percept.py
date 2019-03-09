@@ -1,7 +1,7 @@
 
 class Percept:
     def __init__(self, percept: tuple):
-        self._state, self._action, self._next_state, self._reward, self._done = percept
+        self._state, self._action, self._new_state, self._reward, self._done = percept
 
     @property
     def state(self):
@@ -13,7 +13,7 @@ class Percept:
 
     @property
     def next_state(self):
-        return self._next_state
+        return self._new_state
 
     @property
     def reward(self):

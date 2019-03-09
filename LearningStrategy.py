@@ -6,15 +6,15 @@ class LearningStrategy(ABC):
 
     def learn(self, percept: Percept):
         self.evaluate(percept)
-        self.learn()
+        self.improve()
 
     @abstractmethod
     def evaluate(self, percept: Percept):
-        print(self)
+        return percept
 
     @abstractmethod
     def next_action(self):
         print(self)
 
     def improve(self):
-        print(self)
+        pass

@@ -1,6 +1,6 @@
 import LearningStrategy
 import Environment
-import Percept
+import gym
 
 
 class Agent:
@@ -20,22 +20,19 @@ class Agent:
     def learn(self, n_episodes):
         count_episodes = 0
         while count_episodes < n_episodes:
-            state = self.env.state
+            state = self.env.reset()
+
             while True:
                 action = self.learning_strategy.next_action()
                 percept = self.env.step(action)
                 self.learning_strategy.learn(percept)
-                state = percept.next_state #Voorlopig geen functie, kunnen we mss gebruiken om te visualiseren hoe de agent rond wandelt
+                state = percept.new_state #Voorlopig geen nut, kunnen we mss gebruiken om te visualiseren hoe de agent rond wandelt
                 if percept.done:
                     break
-        
+
+            count_episodes = count_episodes + 1
 
 
-
-
-
-
-"""
 env = gym.make('FrozenLake-v0')
 print("#actions = " + str(env.action_space)) # LEFT = 0, DOWN = 1 RIGHT = 2  UP = 3
 print("#states = " + str(env.observation_space))
@@ -62,7 +59,5 @@ while done == False:
 
 
 #https://github.com/aaksham/frozenlake/blob/master/example.py an example to write clean code for the above gym env
-
-"""
 
 
