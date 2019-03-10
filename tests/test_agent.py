@@ -7,12 +7,13 @@ import numpy as np
 def test_qlearning():
     frozen_lake_v0 = FrozenLake()
     strategy = QLearning(frozen_lake_v0, 0.01)
-    agent = Agent(frozen_lake_v0, strategy, 1000000)
+    agent = Agent(frozen_lake_v0, strategy, 100000)
     agent.learn()
 
     #Calculate and print the average reward per thousand episodes
     rewards_per_thousand_episodes = np.split(np.array(agent.reward_all_episodes), agent.n_episodes / 1000)
 
+    print("Average reward per 1000 episodes")
     count = 1000
     for r in rewards_per_thousand_episodes:
         print(count, ":", str(sum(r/1000)))

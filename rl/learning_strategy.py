@@ -77,7 +77,8 @@ class LearningStrategy(ABC):
 
     def improve(self, percept: Percept):
         #1. What is the best action given the Q table. Pas op voor argmax. NOg te doen
-        action_star = self.rargmax(self.q_table[percept.state, percept.action])
+        action_values = self.q_table[percept.state,:]
+        action_star = np.random.choice(np.flatnonzero(action_values == action_values.max()))
 
         #2. Need to loop over all the actions of the given state and update the policy u
         for i in range(self.mdp.n_actions):
@@ -89,9 +90,3 @@ class LearningStrategy(ABC):
 
     def update_exploiration_rate(self, episode_n: int):
         self._epsilon = self.epsilon_min + (self.epsilon_max - self.epsilon) * np.exp(-self.decay_rate * episode_n)
-
-    def rargmax(self, vector):
-        """ Argmax that chooses randomly among eligible maximum indices. """
-        m = np.amax(vector)
-        indices = np.nonzero(vector == m)[0]
-        return random.choice(indices)
