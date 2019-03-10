@@ -1,7 +1,7 @@
 
 class Percept:
     def __init__(self, percept: tuple):
-        self._state, self._action, self._new_state, self._reward, self._done = percept
+        self._state, self._action, self._new_state, self._reward, self._done, self._info = percept
 
     @property
     def state(self):
@@ -12,7 +12,7 @@ class Percept:
         return self._action
 
     @property
-    def next_state(self):
+    def new_state(self):
         return self._new_state
 
     @property
@@ -24,13 +24,13 @@ class Percept:
         return self._done
 
     def __repr__(self):
-        return '<in {} do {} get {} -> {}>'.format(self.state, self.action, self.reward, self.next_state)
+        return '<in {} do {} get {} -> {}>'.format(self.state, self.action, self.reward, self.new_state)
 
     def __hash__(self):
-        return hash((self.state, self.action, self.next_state, self.reward))
+        return hash((self.state, self.action, self.new_state, self.reward))
 
     def __eq__(self, other):
         if not isinstance(other, type(self)):
             return NotImplemented
         return self.state == other.state and self.action == other.action and \
-               self.reward == other.reward and self.next_state == other.next_state
+               self.reward == other.reward and self.new_state == other.new_state
