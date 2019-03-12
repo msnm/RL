@@ -3,7 +3,7 @@ from rl import learning_strategy, environment
 
 class Agent:
 
-    def __init__(self, env: environment, learning_strategy: learning_strategy, n_episodes=10000):
+    def __init__(self, env: environment, learning_strategy: learning_strategy, n_episodes=100000):
         self._env = env
         self._learningStrategy = learning_strategy
         self._reward_all_episodes = []

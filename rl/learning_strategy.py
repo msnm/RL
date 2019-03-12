@@ -83,10 +83,13 @@ class LearningStrategy(ABC):
         #2. Need to loop over all the actions of the given state and update the policy u
         for i in range(self.mdp.n_actions):
             action_policy = self.policy[percept.state]
-            if(i == action_star):
+            if i == action_star:
                 self.policy[percept.state, i] = 1 - self.epsilon + self.epsilon / abs(self.mdp.n_actions)
             else:
                 self.policy[percept.state, i] = self.epsilon / abs(self.mdp.n_actions)
 
     def update_exploiration_rate(self, episode_n: int):
         self._epsilon = self.epsilon_min + (self.epsilon_max - self.epsilon) * np.exp(-self.decay_rate * episode_n)
+
+    def __repr__(self):
+        return 'learning_rate= {}, reward_discount_rate={}, decay_rate={}, epsilon={}, epsilon_min={}, epsilon_max={}'.format(self.learning_rate, self.reward_discount_rate, self.decay_rate, self.epsilon, self.epsilon_min, self.epsilon_max)
