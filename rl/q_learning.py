@@ -43,11 +43,7 @@ class QLearning(LearningStrategy):
         r = percept.reward
         y = self.reward_discount_rate
         q_a_values = self.q_table[percept.new_state, :]
-        max = np.max(q_a_values)
-        q_new = q * (1 - a) + a * (r + y * max)
+        max_q = np.max(q_a_values)
+        q_new = q * (1 - a) + a * (r + y * max_q)
         self.q_table[percept.state, percept.action] = q_new
-        #print(self.q_table)
-        #print("q_old ", q, " q_new ", self.q_table[percept.state, percept.action], q_new)
 
-    #https://github.com/dennybritz/reinforcement-learning/blob/master/DP/Policy%20Evaluation%20Solution.ipynb
-    #https://harderchoices.com/2018/04/04/monte-carlo-method-in-python/

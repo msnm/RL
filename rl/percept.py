@@ -1,4 +1,3 @@
-
 class Percept:
     def __init__(self, percept: tuple):
         self._state, self._action, self._new_state, self._reward, self._done, self._info = percept
@@ -33,4 +32,4 @@ class Percept:
         if not isinstance(other, type(self)):
             return NotImplemented
         return self.state == other.state and self.action == other.action and \
-               self.reward == other.reward and self.new_state == other.new_state
+            self.reward == other.reward and self.new_state == other.new_state

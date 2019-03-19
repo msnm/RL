@@ -42,12 +42,17 @@ class MDP:
 
     def update(self, percept: Percept):
         self._n += 1
-        self._reward_model[percept.state, percept.action] = 1
+        self._reward_model[percept.state, percept.action] = np.average(
+            [self._reward_model[(percept.state, percept.action)], percept.reward], weights=[self.n - 1 / self.n, 1 / self.n])
         self._state_action_freq[percept.state, percept.action] += 1
         self._state_action_state_freq[percept.new_state, percept.state, percept.action] += 1
+        self.update_transistion_model(percept)
 
-    def update_transistion_model(self):
-        pass #Needs to be implementend. Not doing it with every percept, because this consuems resources!
+    def update_transistion_model(self, percept: Percept):
+        for t  in range(self.n_states):
+            p = self._state_action_state_freq[t, percept.state, percept.action] / self.state_action_freq[percept.state, percept.action]
+            self.transition_model[t, percept.state, percept.action] = p
+
 
     def __repr__(self):
         return self.state_action_freq
