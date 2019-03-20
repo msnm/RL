@@ -76,13 +76,12 @@ class LearningStrategy(ABC):
         return np.random.choice(self.mdp.n_actions, p=self.policy[state, :])
 
     def improve(self, percept: Percept):
-        # 1. What is the best action given the Q table. Pas op voor argmax. NOg te doen
+        # 1. What is the best action given the Q table.
         action_values = self.q_table[percept.state, :]
         action_star = np.random.choice(np.flatnonzero(action_values == action_values.max()))
 
         # 2. Need to loop over all the actions of the given state and update the policy u
         for i in range(self.mdp.n_actions):
-            action_policy = self.policy[percept.state]
             if i == action_star:
                 self.policy[percept.state, i] = 1 - self.epsilon + self.epsilon / abs(self.mdp.n_actions)
             else:

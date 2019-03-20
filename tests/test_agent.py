@@ -15,21 +15,22 @@ class TestAgent(TestCase):
     def test_qlearning(self):
         frozen_lake_v0 = FrozenLake()
         strategy = QLearning(frozen_lake_v0, 0.2, 0.99)
-        self.agent = Agent(frozen_lake_v0, strategy, n_episodes=1000)
+        self.agent = Agent(frozen_lake_v0, strategy, n_episodes=20000)
         self.agent.start()
         self.test_policy_cumm_distr_equals_one(self.agent)
+
 
     def test_nqlearning(self):
         frozen_lake_v0 = FrozenLake()
         strategy = NQLearning(8, frozen_lake_v0, 0.1, 0.99)
-        self.agent = Agent(frozen_lake_v0, strategy, n_episodes=30000)
+        self.agent = Agent(frozen_lake_v0, strategy, n_episodes=20000)
         self.agent.start()
         self.test_policy_cumm_distr_equals_one(self.agent)
 
     def test_mclearning(self):
         frozen_lake_v0 = FrozenLake()
         strategy = MCLearning(frozen_lake_v0, 0.01)
-        self.agent = Agent(frozen_lake_v0, strategy, n_episodes=30000)
+        self.agent = Agent(frozen_lake_v0, strategy, n_episodes=20000)
         self.agent.start()
         self.test_policy_cumm_distr_equals_one(self.agent)
 
